@@ -268,7 +268,7 @@ void start() {
     clas12root::HipoChain chain;
     // > 5423 -> torus +1
     // < 5419 -> torus -1
-    
+    /*
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005160.hipo");
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005162.hipo");
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005163.hipo");
@@ -277,7 +277,7 @@ void start() {
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005166.hipo");
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005167.hipo");
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005168.hipo");
-    /*
+    */
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005423.hipo");
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005424.hipo");
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005425.hipo");
@@ -286,7 +286,6 @@ void start() {
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005429.hipo");
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005430.hipo");
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005431.hipo");
-    */
     // Istanza di TDatabasePDG per accedere alle proprietà delle particelle, non va in conflitto con clas12database, sono indipendenti
     auto db2 = TDatabasePDG::Instance();
     // Definizione di alcuni TLorentzVector utili
@@ -350,6 +349,7 @@ void start() {
     // creo un output root 
     TFile outFile("output.root", "RECREATE");  // File di output ROOT
     TDirectory* dirKaonp = outFile.mkdir("KaonPlus");
+    TDirectory* dirKaonp_Bin = outFile.mkdir("KaonPlus_Bin");
     TDirectory* dirKaonm = outFile.mkdir("KaonMinus");
     TTree treeEl("Electron", "a");
     TTree treePh("Photon", "");
@@ -492,6 +492,29 @@ void start() {
     // Angles
     TH2D km_ThetaVsPhi_h ("_ThetaVsPhi_h", "Correlation Theta vs Phi_h  |  Kaon-  |; Phi_h [Rad]; Theta [Rad]", 60, -TMath::Pi(), TMath::Pi(), 60, 0, 0.2*TMath::Pi());
 
+    // KAON + BIN
+    dirKaonp_Bin->cd();
+    // Bin 1
+    TH1D kp_Phi_z1 ("_Phi_z_1", "Phi_h (z < 0.4)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_PhT1 ("_Phi_PhT_1", "Phi_h (PhT < 0.25 GeV)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_Q21 ("_Phi_Q2_1", "Phi_h (Q^2 < 2 GeV^2)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_xB1 ("_Phi_xB_1", "Phi_h (x_B < 0.15)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    // Bin 2
+    TH1D kp_Phi_z2 ("_Phi_z_2", "Phi_h (0.4 < z < 0.5)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_PhT2 ("_Phi_PhT_2", "Phi_h (0.25 < PhT < 0.5 GeV)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_Q22 ("_Phi_Q2_2", "Phi_h (2 < Q^2 < 3 GeV^2)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_xB2 ("_Phi_xB_2", "Phi_h (0.15 < x_B < 0.25)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    // Bin 3
+    TH1D kp_Phi_z3 ("_Phi_z_3", "Phi_h (0.5 < z < 0.65)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_PhT3 ("_Phi_PhT_3", "Phi_h (0.5 < PhT < 0.7 GeV)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_Q23 ("_Phi_Q2_3", "Phi_h (3 < Q^2 < 4 GeV^2)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_xB3 ("_Phi_xB_3", "Phi_h (0.25 < x_B < 0.35)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    // Bin 4
+    TH1D kp_Phi_z4 ("_Phi_z_4", "Phi_h (z > 0.65)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_PhT4 ("_Phi_PhT_4", "Phi_h (PhT > 0.7 GeV)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_Q24 ("_Phi_Q2_4", "Phi_h (Q^2 > 4 GeV^2)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_xB4 ("_Phi_xB_4", "Phi_h (x_B > 0.35)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+
     // controlla se è disponibile l'istanza Run Conditions DataBase e accede ai metadati di RCDB
     if (config_c12->rcdb()) {
         cout << "rcdb trovato correttamente" << endl;
@@ -613,7 +636,7 @@ void start() {
                         kaonp_pz = Kp->getPz();
                         kaonp_Q2 = -q.M2();                              // Q^2
                         kaonp_xB = kaonp_Q2 / (2 * target.Dot(q));       // x_B     
-                        kaonp_z = target.Dot(P_h) / target.Dot(q);       
+                        kaonp_z = target.Dot(P_h) / target.Dot(q);     
                         kaonp_Pt = P_h.Perp(q.Vect());                 
                         kaonp_Phi = P_h.Phi();
                         kaonp_eta = P_h.PseudoRapidity();
@@ -650,6 +673,26 @@ void start() {
                             }
                             */
                             // Histograms
+                            // z
+                            if(kaonp_z < 0.4) kp_Phi_z1.Fill(kaonp_Phi_h);
+                            else if(kaonp_z >= 0.4 && kaonp_z <0.5) kp_Phi_z2.Fill(kaonp_Phi_h);
+                            else if(kaonp_z >= 0.5 && kaonp_z <0.65) kp_Phi_z3.Fill(kaonp_Phi_h);
+                            else if(kaonp_z >= 0.65) kp_Phi_z4.Fill(kaonp_Phi_h);
+                            // PhT
+                            if(kaonp_PhT < 0.25) kp_Phi_PhT1.Fill(kaonp_Phi_h);
+                            else if(kaonp_PhT >= 0.25 && kaonp_PhT <0.5) kp_Phi_PhT2.Fill(kaonp_Phi_h);
+                            else if(kaonp_PhT >= 0.5 && kaonp_PhT <0.7) kp_Phi_PhT3.Fill(kaonp_Phi_h);
+                            else if(kaonp_PhT >= 0.7) kp_Phi_PhT4.Fill(kaonp_Phi_h);
+                            // Q2
+                            if(kaonp_Q2 < 2) kp_Phi_Q21.Fill(kaonp_Phi_h);
+                            else if(kaonp_Q2 >= 2 && kaonp_Q2 < 3) kp_Phi_Q22.Fill(kaonp_Phi_h);
+                            else if(kaonp_Q2 >= 3 && kaonp_Q2 < 4) kp_Phi_Q23.Fill(kaonp_Phi_h);
+                            else if(kaonp_Q2 >= 4) kp_Phi_Q24.Fill(kaonp_Phi_h);
+                            // xB
+                            if(kaonp_xB < 0.15) kp_Phi_xB1.Fill(kaonp_Phi_h);
+                            else if(kaonp_xB >= 0.15 && kaonp_xB <0.25) kp_Phi_xB2.Fill(kaonp_Phi_h);
+                            else if(kaonp_xB >= 0.25 && kaonp_xB <0.35) kp_Phi_xB3.Fill(kaonp_Phi_h);
+                            else if(kaonp_xB >= 0.35) kp_Phi_xB4.Fill(kaonp_Phi_h);
                             // Mom
                             kp_MomVsPhT.Fill(kaonp_PhT, kaonp_Ph);
                             kp_MomVsXb.Fill(kaonp_xB, kaonp_Ph);
