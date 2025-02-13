@@ -143,7 +143,7 @@ bool ElectronPID_VertexCut(double vz){
 // they say 1.2 GeV but is very high, so I must try with 2M_k as lower limit, which will remove the largest fraction of resonances
 bool HadronPID_Reson(double mom, double m2x){
   if(mom > 1.1){
-    if(m2x > 2.32) return true;
+    if(m2x > 2.45) return true;
     else return false;
   }  
   else return false;
@@ -277,6 +277,16 @@ void start() {
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005166.hipo");
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005167.hipo");
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005168.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005169.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005180.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005181.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005182.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005183.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005190.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005191.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005193.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005194.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005165.hipo");
     */
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005423.hipo");
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005424.hipo");
@@ -286,6 +296,18 @@ void start() {
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005429.hipo");
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005430.hipo");
     chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005431.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005432.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005434.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005435.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005436.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005437.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005438.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005439.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005440.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005441.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005442.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005443.hipo");
+    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005444.hipo");
     // Istanza di TDatabasePDG per accedere alle proprietà delle particelle, non va in conflitto con clas12database, sono indipendenti
     auto db2 = TDatabasePDG::Instance();
     // Definizione di alcuni TLorentzVector utili
@@ -428,92 +450,130 @@ void start() {
     // KAON+ PLOT
     dirKaonp->cd();
     // Mom
-    TH2D kp_MomVsPhT ("_MomVsPhT", "Correlation Mom vs PhT  |  Kaon+  |; PhT [GeV]; Mom [GeV]", 80, 0, 1, 80, 0.9, 7);
-    TH2D kp_MomVsXb ("_MomVsXb", "Correlation Mom vs x_B  |  Kaon+  |; x_B; Mom [GeV]", 80, 0, 1, 80, 0.9, 7);
+    TH2D kp_MomVsPhT ("_MomVsPhT", "Correlation Mom vs P_{hT}  |  Kaon+  |; P_{hT} [GeV]; Mom [GeV]", 80, 0, 1, 80, 0.9, 7);
+    TH2D kp_MomVsXb ("_MomVsXb", "Correlation Mom vs x_{B}  |  Kaon+  |; x_{B}; Mom [GeV]", 80, 0, 1, 80, 0.9, 7);
     TH2D kp_MomVsXf ("_MomVsXf", "Correlation Mom vs x_F  |  Kaon+  |; x_F; Mom [GeV]", 80, 0, 0.6, 80, 0.9, 7);
     TH2D kp_MomVsZ ("_MomVsZ", "Correlation Mom vs Z  |  Kaon+  |; z; Mom [GeV]", 80, 0.2, 0.9, 80, 0.9, 7);
     TH2D kp_MomVsY ("_MomVsY", "Correlation Mom vs Y  |  Kaon+  |; y; Mom [GeV]", 80, 0.2, 0.75, 80, 0.9, 7);
     TH2D kp_MomVsEta ("_MomVsEta", "Correlation Mom vs Eta  |  Kaon+  |; Eta; Mom [GeV]", 80, 1.5, 3.0, 80, 0.9, 7);
     TH2D kp_MomVsTheta ("_MomVsTheta", "Correlation Mom vs Theta  |  Kaon+  |; Theta [Rad]; Mom [GeV]", 80, 0, 0.2*TMath::Pi(), 80, 0.9, 7);
-    TH2D kp_MomVsPhi_h ("_MomVsPhi_h", "Correlation Mom vs Phi_h  |  Kaon+  |; Phi_h [Rad]; Mom [GeV]", 80, -TMath::Pi(), TMath::Pi(), 80, 0.9, 7);
+    TH2D kp_MomVsPhi_h ("_MomVsPhi_h", "Correlation Mom vs #Phi_{h}  |  Kaon+  |; #Phi_{h} [Rad]; Mom [GeV]", 80, -TMath::Pi(), TMath::Pi(), 80, 0.9, 7);
     // Q2
-    TH2D kp_Q2VsXb ("_Q2VsXb", "Correlation Q^2 vs x_B  |  Kaon+  |; x_B; Q^2 [GeV^2]", 80, 0, 1, 80, 1, 8);
-    TH2D kp_Q2VsXf ("_Q2VsXf", "Correlation Q^2 vs x_F  |  Kaon+  |; x_F; Q^2 [GeV^2]", 80, 0, 0.6, 80, 1, 7);
-    TH2D kp_Q2VsMom ("_Q2VsMom", "Correlation Q^2 vs Mom  |  Kaon+  |; Mom [GeV]; Q^2 [GeV^2]", 80, 0.9, 6, 80, 1, 7);
-    TH2D kp_Q2VsPhT ("_Q2VsPhT", "Correlation Q^2 vs PhT  |  Kaon+  |; PhT [GeV]; Q^2 [GeV^2]", 80, 0, 1.2, 80, 1, 6);
-    TH2D kp_Q2VsZ ("_Q2VsZ", "Correlation Q^2 vs Z  |  Kaon+  |; z; Q^2 [GeV^2]", 80, 0.2, 0.9, 80, 1, 6);
-    TH2D kp_Q2VsY ("_Q2VsY", "Correlation Q^2 vs Y  |  Kaon+  |; y; Q^2 [GeV^2]", 80, 0.2, 0.75, 80, 0.9, 7);
-    TH2D kp_Q2VsEta ("_Q2VsEta", "Correlation Q^2 vs Eta  |  Kaon+  |; Eta; Q^2 [GeV^2]", 80, 1.5, 3.0, 80, 1, 6);
-    TH2D kp_Q2VsPhi_h ("_Q2VsPhi_h", "Correlation Q^2 vs Phi_h  |  Kaon+  |; Phi_h [Rad]; Q^2 [GeV^2]", 80, -TMath::Pi(), TMath::Pi(), 80, 1, 6);
+    TH2D kp_Q2VsXb ("_Q2VsXb", "Correlation Q^{2} vs x_{B}  |  Kaon+  |; x_{B}; Q^{2} [GeV^{2}]", 80, 0, 1, 80, 1, 8);
+    TH2D kp_Q2VsXf ("_Q2VsXf", "Correlation Q^{2} vs x_F  |  Kaon+  |; x_F; Q^{2} [GeV^{2}]", 80, 0, 0.6, 80, 1, 7);
+    TH2D kp_Q2VsMom ("_Q2VsMom", "Correlation Q^{2} vs Mom  |  Kaon+  |; Mom [GeV]; Q^{2} [GeV^{2}]", 80, 0.9, 6, 80, 1, 7);
+    TH2D kp_Q2VsPhT ("_Q2VsPhT", "Correlation Q^{2} vs P_{hT}  |  Kaon+  |; P_{hT} [GeV]; Q^{2} [GeV^{2}]", 80, 0, 1.2, 80, 1, 6);
+    TH2D kp_Q2VsZ ("_Q2VsZ", "Correlation Q^{2} vs Z  |  Kaon+  |; z; Q^{2} [GeV^{2}]", 80, 0.2, 0.9, 80, 1, 6);
+    TH2D kp_Q2VsY ("_Q2VsY", "Correlation Q^{2} vs Y  |  Kaon+  |; y; Q^{2} [GeV^{2}]", 80, 0.2, 0.75, 80, 0.9, 7);
+    TH2D kp_Q2VsEta ("_Q2VsEta", "Correlation Q^{2} vs Eta  |  Kaon+  |; Eta; Q^{2} [GeV^{2}]", 80, 1.5, 3.0, 80, 1, 6);
+    TH2D kp_Q2VsPhi_h ("_Q2VsPhi_h", "Correlation Q^{2} vs #Phi_{h}  |  Kaon+  |; #Phi_{h} [Rad]; Q^{2} [GeV^{2}]", 80, -TMath::Pi(), TMath::Pi(), 80, 1, 6);
     // PhT
-    TH2D kp_PhTvsZ ("_PhTvsZ", "Correlation PhT vs Z  |  Kaon+  |; z; PhT [GeV]", 80, 0.2, 1, 80, 0, 1.2);
-    TH2D kp_PhTvsXb ("_PhTvsXb", "Correlation PhT vs Xb  |  Kaon+  |; x_B; PhT [GeV]", 80, 0, 1, 80, 0, 1.2);
-    TH2D kp_PhTvsEta ("_PhTvsEta", "Correlation PhT vs Eta  |  Kaon+  |; Eta; PhT [GeV]", 80, 1.5, 3.0, 80, 0, 1.2);
-    TH2D kp_PhTvsPhi_h ("_PhTvsPhi_h", "Correlation PhT vs Phi_h  |  Kaon+  |; Phi_h [Rad]; PhT [GeV]", 80, -TMath::Pi(), TMath::Pi(), 80, 0, 1.2);
+    TH2D kp_PhTvsZ ("_PhTvsZ", "Correlation P_{hT} vs Z  |  Kaon+  |; z; P_{hT} [GeV]", 80, 0.2, 1, 80, 0, 1.2);
+    TH2D kp_PhTvsXb ("_PhTvsXb", "Correlation P_{hT} vs x_{B}  |  Kaon+  |; x_{B}; P_{hT} [GeV]", 80, 0, 1, 80, 0, 1.2);
+    TH2D kp_PhTvsEta ("_PhTvsEta", "Correlation P_{hT} vs Eta  |  Kaon+  |; Eta; P_{hT} [GeV]", 80, 1.5, 3.0, 80, 0, 1.2);
+    TH2D kp_PhTvsPhi_h ("_PhTvsPhi_h", "Correlation P_{hT} vs #Phi_{h}  |  Kaon+  |; #Phi_{h} [Rad]; P_{hT} [GeV]", 80, -TMath::Pi(), TMath::Pi(), 80, 0, 1.2);
     // Z
-    TH2D kp_zVsXb ("_zVsXb", "Correlation Z vs x_B  |  Kaon+  |; x_B; z", 80, 0, 1, 80, 0.2, 0.9);
+    TH2D kp_zVsXb ("_zVsXb", "Correlation Z vs x_{B}  |  Kaon+  |; x_{B}; z", 80, 0, 1, 80, 0.2, 0.9);
     TH2D kp_zVsXf ("_zVsXf", "Correlation Z vs x_F  |  Kaon+  |; x_F; z", 80, 0, 0.6, 80, 0.2, 0.9);
     TH2D kp_zVsEta ("_zVsEta", "Correlation Z vs Eta  |  Kaon+  |; Eta; z", 80, 1.5, 3.0, 80, 0.2, 0.9);
-    TH2D kp_zVsPhi_h ("_zVsPhi_h", "Correlation Z vs Phi_h  |  Kaon+  |; Phi_h [Rad]; z", 80, -TMath::Pi(), TMath::Pi(), 80, 0.2, 0.9);
+    TH2D kp_zVsPhi_h ("_zVsPhi_h", "Correlation Z vs #Phi_{h}  |  Kaon+  |; #Phi_{h} [Rad]; z", 80, -TMath::Pi(), TMath::Pi(), 80, 0.2, 0.9);
     // Angles
-    TH2D kp_ThetaVsPhi_h ("_ThetaVsPhi_h", "Correlation Theta vs Phi_h  |  Kaon+  |; Phi_h [Rad]; Theta [Rad]", 80, -TMath::Pi(), TMath::Pi(), 80, 0, 0.2*TMath::Pi());
+    TH2D kp_ThetaVsPhi_h ("_ThetaVsPhi_h", "Correlation Theta vs #Phi_{h}  |  Kaon+  |; #Phi_{h} [Rad]; Theta [Rad]", 80, -TMath::Pi(), TMath::Pi(), 80, 0, 0.2*TMath::Pi());
     TH2D el_ThetaVsMom ("el_ThetaVsMom", "Correlation Theta vs Mom  |  electron  |; Mom [GeV]; Theta [Deg]", 80, 1.5, 9, 80, 5, 40);
-    TH2D kp_MomVsM2x ("_MomVsM2x", "correlation Mom vs M2x | Kaon+ |; Mom [GeV]; M2x[GeV^2]", 60, 1, 7, 60, 2.3, 11);
+    TH2D kp_MomVsM2x ("_MomVsM2x", "correlation Mom vs M2x | Kaon+ |; Mom [GeV]; M2x[GeV^{2}]", 60, 1, 7, 60, 2.45, 11);
     // KAON- PLOT
     dirKaonm->cd();
     // Mom
-    TH2D km_MomVsPhT ("_MomVsPhT", "Correlation Mom vs PhT  |  Kaon-  |; PhT [GeV]; Mom[GeV]", 60, 0, 1, 60, 0.9, 6);
-    TH2D km_MomVsXb ("_MomVsXb", "Correlation Mom vs x_B  |  Kaon-  |; x_B; Mom[GeV]", 60, 0, 1, 60, 0.9, 6);
+    TH2D km_MomVsPhT ("_MomVsPhT", "Correlation Mom vs P_{hT}  |  Kaon-  |; P_{hT} [GeV]; Mom[GeV]", 60, 0, 1, 60, 0.9, 6);
+    TH2D km_MomVsXb ("_MomVsXb", "Correlation Mom vs x_{B}  |  Kaon-  |; x_{B}; Mom[GeV]", 60, 0, 1, 60, 0.9, 6);
     TH2D km_MomVsXf ("_MomVsXf", "Correlation Mom vs x_F  |  Kaon-  |; x_F; Mom[GeV]", 60, 0, 0.6, 60, 0.9, 6);
     TH2D km_MomVsZ ("_MomVsZ", "Correlation Mom vs Z  |  Kaon-  |; z; Mom[GeV]", 60, 0.2, 0.9, 60, 0.9, 6);
     TH2D km_MomVsY ("_MomVsY", "Correlation Mom vs Y  |  Kaon-  |; y; Mom[GeV]", 60, 0.2, 0.75, 60, 0.9, 6);
     TH2D km_MomVsEta ("_MomVsEta", "Correlation Mom vs Eta  |  Kaon-  |; Eta; Mom[GeV]", 60, 1.5, 3, 60, 0.9, 6);
     TH2D km_MomVsTheta ("_MomVsTheta", "Correlation Mom vs Theta  |  Kaon-  |; Theta [Rad]; Mom[GeV]", 60, 0, 0.2*TMath::Pi(), 60, 0.9, 6);
-    TH2D km_MomVsPhi_h ("_MomVsPhi_h", "Correlation Mom vs Phi_h  |  Kaon-  |; Phi_h [Rad]; Mom[GeV]", 60, -TMath::Pi(), TMath::Pi(), 60, 0.9, 6);
+    TH2D km_MomVsPhi_h ("_MomVsPhi_h", "Correlation Mom vs #Phi_{h}  |  Kaon-  |; #Phi_{h} [Rad]; Mom[GeV]", 60, -TMath::Pi(), TMath::Pi(), 60, 0.9, 6);
     // Q2
-    TH2D km_Q2VsXb ("_Q2VsXb", "Correlation Q^2 vs x_B  |  Kaon-  |; x_B; Q^2 [GeV^2]", 60, 0, 1, 60, 1, 6);
-    TH2D km_Q2VsXf ("_Q2VsXf", "Correlation Q^2 vs x_F  |  Kaon-  |; x_F; Q^2 [GeV^2]", 60, 0, 0.6, 60, 1, 6);
-    TH2D km_Q2VsMom ("_Q2VsMom", "Correlation Q^2 vs Mom  |  Kaon-  |; Mom [GeV]; Q^2 [GeV^2]", 60, 0.9, 6, 60, 1, 6);
-    TH2D km_Q2VsPhT ("_Q2VsPhT", "Correlation Q^2 vs PhT  |  Kaon-  |; PhT [GeV]; Q^2 [GeV^2]", 60, 0, 1.1, 60, 1, 6);
-    TH2D km_Q2VsZ ("_Q2VsZ", "Correlation Q^2 vs Z  |  Kaon-  |; z; Q^2 [GeV^2]", 60, 0.2, 0.9, 60, 1, 6);
-    TH2D km_Q2VsY ("_Q2VsY", "Correlation Q^2 vs Y  |  Kaon-  |; y; Q^2 [GeV^2]", 80, 0.2, 0.75, 80, 0.9, 6);
-    TH2D km_Q2VsEta ("_Q2VsEta", "Correlation Q^2 vs Eta  |  Kaon-  |; Eta; Q^2 [GeV^2]", 60, 1.5, 3, 60, 1, 6);
-    TH2D km_Q2VsPhi_h ("_Q2VsPhi_h", "Correlation Q^2 vs Phi_h  |  Kaon-  |; Phi_h [Rad]; Q^2 [GeV^2]", 60, -TMath::Pi(), TMath::Pi(), 60, 1, 6);
+    TH2D km_Q2VsXb ("_Q2VsXb", "Correlation Q^{2} vs x_{B}  |  Kaon-  |; x_{B}; Q^{2} [GeV^{2}]", 60, 0, 1, 60, 1, 6);
+    TH2D km_Q2VsXf ("_Q2VsXf", "Correlation Q^{2} vs x_F  |  Kaon-  |; x_F; Q^{2} [GeV^{2}]", 60, 0, 0.6, 60, 1, 6);
+    TH2D km_Q2VsMom ("_Q2VsMom", "Correlation Q^{2} vs Mom  |  Kaon-  |; Mom [GeV]; Q^{2} [GeV^{2}]", 60, 0.9, 6, 60, 1, 6);
+    TH2D km_Q2VsPhT ("_Q2VsPhT", "Correlation Q^{2} vs P_{hT}  |  Kaon-  |; P_{hT} [GeV]; Q^{2} [GeV^{2}]", 60, 0, 1.1, 60, 1, 6);
+    TH2D km_Q2VsZ ("_Q2VsZ", "Correlation Q^{2} vs Z  |  Kaon-  |; z; Q^{2} [GeV^{2}]", 60, 0.2, 0.9, 60, 1, 6);
+    TH2D km_Q2VsY ("_Q2VsY", "Correlation Q^{2} vs Y  |  Kaon-  |; y; Q^{2} [GeV^{2}]", 80, 0.2, 0.75, 80, 0.9, 6);
+    TH2D km_Q2VsEta ("_Q2VsEta", "Correlation Q^{2} vs Eta  |  Kaon-  |; Eta; Q^{2} [GeV^{2}]", 60, 1.5, 3, 60, 1, 6);
+    TH2D km_Q2VsPhi_h ("_Q2VsPhi_h", "Correlation Q^{2} vs #Phi_{h}  |  Kaon-  |; #Phi_{h} [Rad]; Q^{2} [GeV^{2}]", 60, -TMath::Pi(), TMath::Pi(), 60, 1, 6);
     // PhT
-    TH2D km_PhTvsZ ("_PhTvsZ", "Correlation PhT vs Z  |  Kaon-  |; z; PhT [GeV]", 60, 0.2, 1, 60, 0, 1.1);
-    TH2D km_PhTvsXb ("_PhTvsXb", "Correlation PhT vs Xb  |  Kaon-  |; x_B; PhT [GeV]", 60, 0, 1, 60, 0, 1.1);
-    TH2D km_PhTvsEta ("_PhTvsEta", "Correlation PhT vs Eta  |  Kaon-  |; Eta; PhT [GeV]", 60, 1.5, 3, 60, 0, 1.1);
-    TH2D km_PhTvsPhi_h ("_PhTvsPhi_h", "Correlation PhT vs Phi  |  Kaon-  |; Phi_h [Rad]; PhT [GeV]", 60, -TMath::Pi(), TMath::Pi(), 60, 0, 1.1);
+    TH2D km_PhTvsZ ("_PhTvsZ", "Correlation P_{hT} vs Z  |  Kaon-  |; z; P_{hT} [GeV]", 60, 0.2, 1, 60, 0, 1.1);
+    TH2D km_PhTvsXb ("_PhTvsXb", "Correlation P_{hT} vs x_{B}  |  Kaon-  |; x_{B}; P_{hT} [GeV]", 60, 0, 1, 60, 0, 1.1);
+    TH2D km_PhTvsEta ("_PhTvsEta", "Correlation P_{hT} vs Eta  |  Kaon-  |; Eta; P_{hT} [GeV]", 60, 1.5, 3, 60, 0, 1.1);
+    TH2D km_PhTvsPhi_h ("_PhTvsPhi_h", "Correlation P_{hT} vs #Phi_{h}  |  Kaon-  |; #Phi_{h} [Rad]; P_{hT} [GeV]", 60, -TMath::Pi(), TMath::Pi(), 60, 0, 1.1);
     // Z
-    TH2D km_zVsXb ("_zVsXb", "Correlation Z vs x_B  |  Kaon-  |; x_B; z", 60, 0, 1, 60, 0.2, 0.9);
+    TH2D km_zVsXb ("_zVsXb", "Correlation Z vs x_{B}  |  Kaon-  |; x_{B}; z", 60, 0, 1, 60, 0.2, 0.9);
     TH2D km_zVsXf ("_zVsXf", "Correlation Z vs x_F  |  Kaon-  |; x_F; z", 60, 0, 0.6, 60, 0.2, 0.9);
     TH2D km_zVsEta ("_zVsEta", "Correlation Z vs Eta  |  Kaon-  |; Eta; z", 60, 1.5, 3, 60, 0.2, 0.9);
-    TH2D km_zVsPhi_h ("_zVsPhi_h", "Correlation Z vs Phi_h  |  Kaon-  |; Phi_h [Rad]; z", 60, -TMath::Pi(), TMath::Pi(), 60, 0.2, 0.9);
+    TH2D km_zVsPhi_h ("_zVsPhi_h", "Correlation Z vs #Phi_{h}  |  Kaon-  |; #Phi_{h} [Rad]; z", 60, -TMath::Pi(), TMath::Pi(), 60, 0.2, 0.9);
     // Angles
-    TH2D km_ThetaVsPhi_h ("_ThetaVsPhi_h", "Correlation Theta vs Phi_h  |  Kaon-  |; Phi_h [Rad]; Theta [Rad]", 60, -TMath::Pi(), TMath::Pi(), 60, 0, 0.2*TMath::Pi());
+    TH2D km_ThetaVsPhi_h ("_ThetaVsPhi_h", "Correlation Theta vs #Phi_{h}  |  Kaon-  |; #Phi_{h} [Rad]; Theta [Rad]", 60, -TMath::Pi(), TMath::Pi(), 60, 0, 0.2*TMath::Pi());
 
     // KAON + BIN
     dirKaonp_Bin->cd();
-    // Bin 1
-    TH1D kp_Phi_z1 ("_Phi_z_1", "Phi_h (z < 0.4)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
-    TH1D kp_Phi_PhT1 ("_Phi_PhT_1", "Phi_h (PhT < 0.25 GeV)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
-    TH1D kp_Phi_Q21 ("_Phi_Q2_1", "Phi_h (Q^2 < 2 GeV^2)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
-    TH1D kp_Phi_xB1 ("_Phi_xB_1", "Phi_h (x_B < 0.15)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
-    // Bin 2
-    TH1D kp_Phi_z2 ("_Phi_z_2", "Phi_h (0.4 < z < 0.5)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
-    TH1D kp_Phi_PhT2 ("_Phi_PhT_2", "Phi_h (0.25 < PhT < 0.5 GeV)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
-    TH1D kp_Phi_Q22 ("_Phi_Q2_2", "Phi_h (2 < Q^2 < 3 GeV^2)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
-    TH1D kp_Phi_xB2 ("_Phi_xB_2", "Phi_h (0.15 < x_B < 0.25)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
-    // Bin 3
-    TH1D kp_Phi_z3 ("_Phi_z_3", "Phi_h (0.5 < z < 0.65)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
-    TH1D kp_Phi_PhT3 ("_Phi_PhT_3", "Phi_h (0.5 < PhT < 0.7 GeV)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
-    TH1D kp_Phi_Q23 ("_Phi_Q2_3", "Phi_h (3 < Q^2 < 4 GeV^2)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
-    TH1D kp_Phi_xB3 ("_Phi_xB_3", "Phi_h (0.25 < x_B < 0.35)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
-    // Bin 4
-    TH1D kp_Phi_z4 ("_Phi_z_4", "Phi_h (z > 0.65)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
-    TH1D kp_Phi_PhT4 ("_Phi_PhT_4", "Phi_h (PhT > 0.7 GeV)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
-    TH1D kp_Phi_Q24 ("_Phi_Q2_4", "Phi_h (Q^2 > 4 GeV^2)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
-    TH1D kp_Phi_xB4 ("_Phi_xB_4", "Phi_h (x_B > 0.35)  |  Kaon+ ; #Phi_h [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    // z
+    TH1D kp_Phi_z1 ("_Phi_z_1", "#Phi_{h} (z < 0.4)  |  Kaon+ ; #Phi_{h} [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_z2 ("_Phi_z_2", "#Phi_{h} (0.4 < z < 0.5)  |  Kaon+ ; #Phi_{h} [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_z3 ("_Phi_z_3", "#Phi_{h} (0.5 < z < 0.65)  |  Kaon+ ; #Phi_{h} [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_z4 ("_Phi_z_4", "#Phi_{h} (z > 0.65)  |  Kaon+ ; #Phi_{h} [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    // PhT
+    TH1D kp_Phi_PhT1 ("_Phi_PhT_1", "#Phi_{h} (P_{hT} < 0.25 GeV)  |  Kaon+ ; #Phi_{h} [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_PhT2 ("_Phi_PhT_2", "#Phi_{h} (0.25 < P_{hT} < 0.5 GeV)  |  Kaon+ ; #Phi_{h} [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_PhT3 ("_Phi_PhT_3", "#Phi_{h} (0.5 < P_{hT} < 0.7 GeV)  |  Kaon+ ; #Phi_{h} [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_PhT4 ("_Phi_PhT_4", "#Phi_{h} (P_{hT} > 0.7 GeV)  |  Kaon+ ; #Phi_{h} [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    // Q^{2}
+    TH1D kp_Phi_Q21 ("_Phi_Q2_1", "#Phi_{h} (Q^{2} < 2 GeV^{2})  |  Kaon+ ; #Phi_{h} [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_Q22 ("_Phi_Q2_2", "#Phi_{h} (2 < Q^{2} < 3 GeV^{2})  |  Kaon+ ; #Phi_{h} [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_Q23 ("_Phi_Q2_3", "#Phi_{h} (3 < Q^{2} < 4 GeV^{2})  |  Kaon+ ; #Phi_{h} [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_Q24 ("_Phi_Q2_4", "#Phi_{h} (Q^{2} > 4 GeV^{2})  |  Kaon+ ; #Phi_{h} [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    // xB
+    TH1D kp_Phi_xB1 ("_Phi_xB_1", "#Phi_{h} (x_{B} < 0.15)  |  Kaon+ ; #Phi_{h} [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_xB2 ("_Phi_xB_2", "#Phi_{h} (0.15 < x_{B} < 0.25)  |  Kaon+ ; #Phi_{h} [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_xB3 ("_Phi_xB_3", "#Phi_{h} (0.25 < x_{B} < 0.35)  |  Kaon+ ; #Phi_{h} [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    TH1D kp_Phi_xB4 ("_Phi_xB_4", "#Phi_{h} (x_{B} > 0.35)  |  Kaon+ ; #Phi_{h} [rad]; Counts", 60, -TMath::Pi(), TMath::Pi());
+    // vediamo se va
+    TH1D kp_Phi_sep ("-------------------------------", " --- |  Kaon+ ;", 60, 1, 8);
+    // z - variables Q^{2} and y to extract <k^{2}_T>
+    TH1D kp_Phi_z1_Q2 ("_Phi_z_1_Q2", "Q^{2} (z < 0.4)  |  Kaon+ ; Q^{2} [GeV^{2}] ; Counts", 60, 1, 8);
+    TH1D kp_Phi_z1_y ("_Phi_z_1_y", "y (z < 0.4)  |  Kaon+ ; y ; Counts", 60, 0.25, 0.75);
+    TH1D kp_Phi_z2_Q2 ("_Phi_z_2_Q2", "Q^{2} (0.4 < z < 0.5)  |  Kaon+ ; Q^{2} [GeV^{2}] ; Counts", 60, 1, 8);
+    TH1D kp_Phi_z2_y ("_Phi_z_2_y", "y (0.4 < z < 0.5)  |  Kaon+ ; y ; Counts", 60, 0.25, 0.75);
+    TH1D kp_Phi_z3_Q2 ("_Phi_z_3_Q2", "Q^{2} (0.5 < z < 0.65)  |  Kaon+ ; Q^{2} [GeV^{2}] ; Counts", 60, 1, 8);
+    TH1D kp_Phi_z3_y ("_Phi_z_3_y", "y (0.5 < z < 0.65)  |  Kaon+ ; y ; Counts", 60, 0.25, 0.75);
+    TH1D kp_Phi_z4_Q2 ("_Phi_z_4_Q2", "Q^{2} (z > 0.65)  |  Kaon+ ; Q^{2} [GeV^{2}] ; Counts", 60, 1, 8);
+    TH1D kp_Phi_z4_y ("_Phi_z_4_y", "y (z > 0.65)  |  Kaon+ ; y ; Counts", 60, 0.25, 0.75);
+    // PhT - variables Q^{2} and y to extract <k^{2}_T>
+    TH1D kp_Phi_PhT1_Q2 ("_Phi_PhT_1_Q2", "Q^{2} (P_{hT} < 0.25 GeV)  |  Kaon+ ; Q^{2} [GeV^{2}] ; Counts", 60, 1, 8);
+    TH1D kp_Phi_PhT1_y ("_Phi_PhT_1_y", "y (P_{hT} < 0.25 GeV)  |  Kaon+ ; y ; Counts", 60, 0.25, 0.75);
+    TH1D kp_Phi_PhT2_Q2 ("_Phi_PhT_2_Q2", "Q^{2} (0.25 < P_{hT} < 0.5 GeV)  |  Kaon+ ; Q^{2} [GeV^{2}] ; Counts", 60, 1, 8);
+    TH1D kp_Phi_PhT2_y ("_Phi_PhT_2_y", "y (0.25 < P_{hT} < 0.5 GeV)  |  Kaon+ ; y ; Counts", 60, 0.25, 0.75);
+    TH1D kp_Phi_PhT3_Q2 ("_Phi_PhT_3_Q2", "Q^{2} (0.5 < P_{hT} < 0.7 GeV)  |  Kaon+ ; Q^{2} [GeV^{2}] ; Counts", 60, 1, 8);
+    TH1D kp_Phi_PhT3_y ("_Phi_PhT_3_y", "y (0.5 < P_{hT} < 0.7 GeV)  |  Kaon+ ; y ; Counts", 60, 0.25, 0.75);
+    TH1D kp_Phi_PhT4_Q2 ("_Phi_PhT_4_Q2", "Q^{2} (P_{hT} > 0.7 GeV)  |  Kaon+ ; Q^{2} [GeV^{2}] ; Counts", 60, 1, 8);
+    TH1D kp_Phi_PhT4_y ("_Phi_PhT_4_y", "y (P_{hT} > 0.7 GeV)  |  Kaon+ ; y ; Counts", 60, 0.25, 0.75);
+    // Q^2 - variables Q^{2} and y to extract <k^{2}_T>
+    TH1D kp_Phi_Q21_Q2 ("_Phi_Q2_1_Q2", "Q^{2} (Q2 < 2 GeV^{2})  |  Kaon+ ; Q^{2} [GeV^{2}] ; Counts", 60, 1, 2);
+    TH1D kp_Phi_Q21_y ("_Phi_Q2_1_y", "y (Q2 < 2 GeV^{2})  |  Kaon+ ; y ; Counts", 60, 0.25, 0.75);
+    TH1D kp_Phi_Q22_Q2 ("_Phi_Q2_2_Q2", "Q^{2} (2 < Q2 < 3 GeV^{2})  |  Kaon+ ; Q^{2} [GeV^{2}] ; Counts", 60, 2, 3);
+    TH1D kp_Phi_Q22_y ("_Phi_Q2_2_y", "y (2 < Q2 < 3 GeV^{2})  |  Kaon+ ; y ; Counts", 60, 0.25, 0.75);
+    TH1D kp_Phi_Q23_Q2 ("_Phi_Q2_3_Q2", "Q^{2} (3 < Q2 < 4 GeV^{2})  |  Kaon+ ; Q^{2} [GeV^{2}] ; Counts", 60, 3, 4);
+    TH1D kp_Phi_Q23_y ("_Phi_Q2_3_y", "y (3 < Q2 < 4 GeV^{2})  |  Kaon+ ; y ; Counts", 60, 0.25, 0.75);
+    TH1D kp_Phi_Q24_Q2 ("_Phi_Q2_4_Q2", "Q^{2} (Q2 > 4 GeV^{2})  |  Kaon+ ; Q^{2} [GeV^{2}] ; Counts", 60, 4, 9);
+    TH1D kp_Phi_Q24_y ("_Phi_Q2_4_y", "y (Q2 > 4 GeV^{2})  |  Kaon+ ; y ; Counts", 60, 0.25, 0.75);
+    // xB - variables Q^{2} and y to extract <k^{2}_T>
+    TH1D kp_Phi_xB1_Q2 ("_Phi_xB_1_Q2", "Q^{2} (x_{B} < 0.15)  |  Kaon+ ; Q^{2} [GeV^{2}] ; Counts", 60, 1, 8);
+    TH1D kp_Phi_xB1_y ("_Phi_xB_1_y", "y (x_{B} < 0.15)  |  Kaon+ ; y ; Counts", 60, 0.25, 0.75);
+    TH1D kp_Phi_xB2_Q2 ("_Phi_xB_2_Q2", "Q^{2} (0.15 < x_{B} < 0.25)  |  Kaon+ ; Q^{2} [GeV^{2}] ; Counts", 60, 1, 8);
+    TH1D kp_Phi_xB2_y ("_Phi_xB_2_y", "y (0.15 < x_{B} < 0.25)  |  Kaon+ ; y ; Counts", 60, 0.25, 0.75);
+    TH1D kp_Phi_xB3_Q2 ("_Phi_xB_3_Q2", "Q^{2} (0.25 < x_{B} < 0.35)  |  Kaon+ ; Q^{2} [GeV^{2}] ; Counts", 60, 1, 8);
+    TH1D kp_Phi_xB3_y ("_Phi_xB_3_y", "y (0.25 < x_{B} < 0.35)  |  Kaon+ ; y ; Counts", 60, 0.25, 0.75);
+    TH1D kp_Phi_xB4_Q2 ("_Phi_xB_4_Q2", "Q^{2} (x_{B} > 0.35)  |  Kaon+ ; Q^{2} [GeV^{2}] ; Counts", 60, 1, 8);
+    TH1D kp_Phi_xB4_y ("_Phi_xB_4_y", "y (x_{B} > 0.35)  |  Kaon+ ; y ; Counts", 60, 0.25, 0.75);
 
     // controlla se è disponibile l'istanza Run Conditions DataBase e accede ai metadati di RCDB
     if (config_c12->rcdb()) {
@@ -537,7 +597,7 @@ void start() {
     auto elRegion=FD;
     gBenchmark->Start("db");
     size_t eventCount = 0;
-    const size_t maxEvents = 1e8;
+    const size_t maxEvents = 1e10;
     while (chain.Next()){
         eventCount++;
         if (eventCount >= maxEvents) {
@@ -674,25 +734,77 @@ void start() {
                             */
                             // Histograms
                             // z
-                            if(kaonp_z < 0.4) kp_Phi_z1.Fill(kaonp_Phi_h);
-                            else if(kaonp_z >= 0.4 && kaonp_z <0.5) kp_Phi_z2.Fill(kaonp_Phi_h);
-                            else if(kaonp_z >= 0.5 && kaonp_z <0.65) kp_Phi_z3.Fill(kaonp_Phi_h);
-                            else if(kaonp_z >= 0.65) kp_Phi_z4.Fill(kaonp_Phi_h);
+                            if(kaonp_z < 0.4){ 
+                              kp_Phi_z1.Fill(kaonp_Phi_h);
+                              kp_Phi_z1_Q2.Fill(kaonp_Q2);
+                              kp_Phi_z1_y.Fill(kaonp_y);
+                            }else if(kaonp_z >= 0.4 && kaonp_z <0.5){
+                              kp_Phi_z2.Fill(kaonp_Phi_h);
+                              kp_Phi_z2_Q2.Fill(kaonp_Q2);
+                              kp_Phi_z2_y.Fill(kaonp_y);
+                            }else if(kaonp_z >= 0.5 && kaonp_z <0.65){
+                              kp_Phi_z3.Fill(kaonp_Phi_h);
+                              kp_Phi_z3_Q2.Fill(kaonp_Q2);
+                              kp_Phi_z3_y.Fill(kaonp_y);
+                            }else if(kaonp_z >= 0.65){
+                              kp_Phi_z4.Fill(kaonp_Phi_h);
+                              kp_Phi_z4_Q2.Fill(kaonp_Q2);
+                              kp_Phi_z4_y.Fill(kaonp_y);
+                            }
                             // PhT
-                            if(kaonp_PhT < 0.25) kp_Phi_PhT1.Fill(kaonp_Phi_h);
-                            else if(kaonp_PhT >= 0.25 && kaonp_PhT <0.5) kp_Phi_PhT2.Fill(kaonp_Phi_h);
-                            else if(kaonp_PhT >= 0.5 && kaonp_PhT <0.7) kp_Phi_PhT3.Fill(kaonp_Phi_h);
-                            else if(kaonp_PhT >= 0.7) kp_Phi_PhT4.Fill(kaonp_Phi_h);
+                            if(kaonp_PhT < 0.25){
+                              kp_Phi_PhT1.Fill(kaonp_Phi_h);
+                              kp_Phi_PhT1_Q2.Fill(kaonp_Q2);
+                              kp_Phi_PhT1_y.Fill(kaonp_y);
+                            }else if(kaonp_PhT >= 0.25 && kaonp_PhT <0.5){
+                              kp_Phi_PhT2.Fill(kaonp_Phi_h);
+                              kp_Phi_PhT2_Q2.Fill(kaonp_Q2);
+                              kp_Phi_PhT2_y.Fill(kaonp_y);
+                            }else if(kaonp_PhT >= 0.5 && kaonp_PhT <0.7){
+                              kp_Phi_PhT3.Fill(kaonp_Phi_h);
+                              kp_Phi_PhT3_Q2.Fill(kaonp_Q2);
+                              kp_Phi_PhT3_y.Fill(kaonp_y);
+                            }else if(kaonp_PhT >= 0.7){
+                              kp_Phi_PhT4.Fill(kaonp_Phi_h);
+                              kp_Phi_PhT4_Q2.Fill(kaonp_Q2);
+                              kp_Phi_PhT4_y.Fill(kaonp_y);
+                            }
                             // Q2
-                            if(kaonp_Q2 < 2) kp_Phi_Q21.Fill(kaonp_Phi_h);
-                            else if(kaonp_Q2 >= 2 && kaonp_Q2 < 3) kp_Phi_Q22.Fill(kaonp_Phi_h);
-                            else if(kaonp_Q2 >= 3 && kaonp_Q2 < 4) kp_Phi_Q23.Fill(kaonp_Phi_h);
-                            else if(kaonp_Q2 >= 4) kp_Phi_Q24.Fill(kaonp_Phi_h);
+                            if(kaonp_Q2 < 2){
+                              kp_Phi_Q21.Fill(kaonp_Phi_h);
+                              kp_Phi_Q21_Q2.Fill(kaonp_Q2);
+                              kp_Phi_Q21_y.Fill(kaonp_y);
+                            }else if(kaonp_Q2 >= 2 && kaonp_Q2 < 3){
+                              kp_Phi_Q22.Fill(kaonp_Phi_h);
+                              kp_Phi_Q22_Q2.Fill(kaonp_Q2);
+                              kp_Phi_Q22_y.Fill(kaonp_y);
+                            }else if(kaonp_Q2 >= 3 && kaonp_Q2 < 4){
+                              kp_Phi_Q23.Fill(kaonp_Phi_h);
+                              kp_Phi_Q23_Q2.Fill(kaonp_Q2);
+                              kp_Phi_Q23_y.Fill(kaonp_y);
+                            }else if(kaonp_Q2 >= 4){
+                              kp_Phi_Q24.Fill(kaonp_Phi_h);
+                              kp_Phi_Q24_Q2.Fill(kaonp_Q2);
+                              kp_Phi_Q24_y.Fill(kaonp_y);
+                            }
                             // xB
-                            if(kaonp_xB < 0.15) kp_Phi_xB1.Fill(kaonp_Phi_h);
-                            else if(kaonp_xB >= 0.15 && kaonp_xB <0.25) kp_Phi_xB2.Fill(kaonp_Phi_h);
-                            else if(kaonp_xB >= 0.25 && kaonp_xB <0.35) kp_Phi_xB3.Fill(kaonp_Phi_h);
-                            else if(kaonp_xB >= 0.35) kp_Phi_xB4.Fill(kaonp_Phi_h);
+                            if(kaonp_xB < 0.15){
+                              kp_Phi_xB1.Fill(kaonp_Phi_h);
+                              kp_Phi_xB1_Q2.Fill(kaonp_Q2);
+                              kp_Phi_xB1_y.Fill(kaonp_y);
+                            }else if(kaonp_xB >= 0.15 && kaonp_xB <0.25){
+                              kp_Phi_xB2.Fill(kaonp_Phi_h);
+                              kp_Phi_xB2_Q2.Fill(kaonp_Q2);
+                              kp_Phi_xB2_y.Fill(kaonp_y);
+                            }else if(kaonp_xB >= 0.25 && kaonp_xB <0.35){
+                              kp_Phi_xB3.Fill(kaonp_Phi_h);
+                              kp_Phi_xB3_Q2.Fill(kaonp_Q2);
+                              kp_Phi_xB3_y.Fill(kaonp_y);
+                            }else if(kaonp_xB >= 0.35){
+                              kp_Phi_xB4.Fill(kaonp_Phi_h);
+                              kp_Phi_xB4_Q2.Fill(kaonp_Q2);
+                              kp_Phi_xB4_y.Fill(kaonp_y);
+                            }
                             // Mom
                             kp_MomVsPhT.Fill(kaonp_PhT, kaonp_Ph);
                             kp_MomVsXb.Fill(kaonp_xB, kaonp_Ph);
