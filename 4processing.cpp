@@ -289,57 +289,16 @@ void _4processing(const char* fileList) {
       std::cerr << "Errore: nessun file di input trovato in " << fileList << std::endl;
       return;
     }
+    for (int i = 0; i < inputFiles.size(); i++){
+      chain.Add(inputFiles[i].c_str());
+    }
+    /*
     for (const auto& file : inputFiles) {
       chain.Add(file.c_str());
     }
-
-    TFile outFile(outputFile.c_str(), "RECREATE");  // File di output ROOT
+    */
     // > 5423 -> torus +1
-    // < 5419 -> torus -1
-    /*
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005160.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005162.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005163.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005164.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005165.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005166.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005167.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005168.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005169.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005180.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005181.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005182.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005183.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005190.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005191.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005193.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005194.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005195.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005196.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass2/main/train/nSidis/nSidis_005197.hipo");
-    
-    //chain.Add("/cache/clas12/rg-b/production/recon/fall2019/torus+1/pass2/v1/dst/train/sidisdvcs/sidisdvcs_011093.hipo ");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005423.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005424.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005425.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005426.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005428.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005429.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005430.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005431.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005432.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005434.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005435.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005436.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005437.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005438.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005439.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005440.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005441.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005442.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005443.hipo");
-    chain.Add("/cache/clas12/rg-a/production/recon/fall2018/torus+1/pass2/train/nSidis/nSidis_005444.hipo");
-    */    
+    // < 5419 -> torus -1 
     
     // Istanza di TDatabasePDG per accedere alle proprietà delle particelle, non va in conflitto con clas12database, sono indipendenti
     auto db2 = TDatabasePDG::Instance();
@@ -382,6 +341,7 @@ void _4processing(const char* fileList) {
     double kaonp_rich_Id, kaonp_rich_PID = 0;
     double kaonp_phi_cambio, kaonp_phi_cambio2;
     double kaonp_helicity, kaonp_Phi_Hup, kaonp_Phi_Hdw, kaonp_Pol, kaonp_epsilon, kaonp_gamma, kaonp_Pol_err;
+    double kaonp_rich_RQ, kaonp_rich_ReQ, kaonp_tracker_chi2, kaonp_rich_prob, kaonp_rich_ntot, kaonp_rich_ch;
     // kaone -
     double kaonm_px, kaonm_py, kaonm_pz;
     double kaonm_xF, kaonm_xB, kaonm_Q2, kaonm_z, kaonm_Ph, kaonm_Pt;
@@ -389,6 +349,7 @@ void _4processing(const char* fileList) {
     double kaonm_Ph_x, kaonm_Ph_y, kaonm_PhT, kaonm_eta, kaonm_M2x, kaonm_chi2pid;
     double kaonm_edge1, kaonm_edge2, kaonm_edge3, kaonm_vz, kaonm_SinPhi;
     double kaonm_helicity, kaonm_Phi_Hup, kaonm_Phi_Hdw, kaonm_Pol, kaonm_epsilon, kaonm_gamma, kaonm_Pol_err;
+    double kaonm_richEvent, kaonm_rich_RQ;
     // BINNING
     const int nZBins = 3;
     const int nPtBins = 3;
@@ -398,6 +359,8 @@ void _4processing(const char* fileList) {
     //clas12reader c12(filePath);
     //chain.SetRcdbData("rcdb.root");
     auto config_c12=chain.GetC12Reader();
+    chain.SetReaderTags({0});
+    config_c12->addAtLeastPid(11,1);
     auto& c12=chain.C12ref();
     clas12databases::SetRCDBRemoteConnection();
     chain.WriteRcdbData("rcdb.root");
@@ -406,6 +369,7 @@ void _4processing(const char* fileList) {
     c12->connectDataBases(&db);
     //c12.showBanks();
     // creo un output root 
+    TFile outFile(outputFile.c_str(), "RECREATE");  // File di output ROOT
     TTree treeEl("Electron", "a");
     TTree treeKaonP("Kaon+", "");
     TTree treeKaonPhp("Kaon+ H+", "");
@@ -451,6 +415,10 @@ void _4processing(const char* fileList) {
     treeKaonP.Branch("M2_x", &kaonp_M2x, "M2_x/D");
     treeKaonP.Branch("Rich_Id", &kaonp_rich_Id, "Rich_Id/D");
     treeKaonP.Branch("Rich_PID", &kaonp_rich_PID, "Rich_PID/D");
+    treeKaonP.Branch("Rich_RQ", &kaonp_rich_RQ, "Rich_RQ/D");
+    treeKaonP.Branch("Rich_nTot", &kaonp_rich_ntot, "Rich_nTot/D");
+    treeKaonP.Branch("Rich_ch", &kaonp_rich_ch, "Rich_ch/D");
+    treeKaonP.Branch("Tracker_Chi2", &kaonp_tracker_chi2, "Tracker_Chi2/D");
     treeKaonP.Branch("Polarization", &kaonp_Pol, "Polarization/D");
     treeKaonP.Branch("epsilon", &kaonp_epsilon, "epsilon/D");
     // Kaon + Helicity positive
@@ -518,6 +486,14 @@ void _4processing(const char* fileList) {
     treeKaonM.Branch("Polarization", &kaonm_Pol, "Polarization/D");
     treeKaonM.Branch("epsilon", &kaonm_epsilon, "epsilon/D");
 
+    TH2D kp_PIDVsTheta ("_PIDVsTheta", "Correlation among #theta vs PID  |  Kaon+  |; PID; #theta [Rad]", 30, 0, 330, 30, 0, 0.6);
+    TH2D kp_PIDVsMom ("_PIDVsMom", "Correlation among Mom vs PID  |  Kaon+  |; PID; Mom [GeV]", 30, 0, 350, 30, 0, 8);
+    TH1D kp_Ch ("_Ch_", "ch", 30, 0, 1);
+    TH1D kp_nTot ("_nTot_", "nTot", 30, 0, 30);
+    TH1D kp_RQ ("_RQ_", "RQ", 30, 0, 1);
+
+
+
     // controlla se è disponibile l'istanza Run Conditions DataBase e accede ai metadati di RCDB
     if (config_c12->rcdb()) {
         cout << "rcdb trovato correttamente" << endl;
@@ -540,26 +516,38 @@ void _4processing(const char* fileList) {
     auto elRegion=FD;
     gBenchmark->Start("db");
     size_t eventCount = 0;
-    const size_t maxEvents = 1e9;
+    const size_t maxEvents = 1e16;
+    int e_PID = 11;
+    int kp_PID = 321;
+    int km_PID = -321;
     while (chain.Next()){
         eventCount++;
-        if (eventCount >= maxEvents) {
-            break;  
-        }
+        if (eventCount >= maxEvents) break;
         auto electrons = c12->getByID(11);  // Recupera tutte le particelle con PID = 11 
-        int e_PID = 11;
         auto protons = c12->getByID(2212); 
         auto pionp = c12->getByID(211);
         auto kaonp = c12->getByID(321);
-        int kp_PID = 321;
         auto kaonm = c12->getByID(-321);
-        int km_PID = -321;
         auto virtual_gamma = c12->getByID(22);
-        auto N_run = c12->runconfig()->getRun();
+        vector<clas12::region_part_ptr> electrons_vec;
+        vector<clas12::region_part_ptr> hadrons_vec;
+        vector<clas12::region_part_ptr> kaonp_vec;
+        //
+        for(auto &p:c12->getDetParticles()){
+          if(p->getPid()==11)electrons_vec.push_back(p);
+          if(p->getPid() > 200 && p->getPid() < 2300 && p->par()->getCharge() != 0)hadrons_vec.push_back(p);
+          else if(p->rich() && p->rich()->getBest_PID()>200) hadrons_vec.push_back(p);
+          if(p->getPid() == 321)kaonp_vec.push_back(p);
+          else if(p->rich() && p->rich()->getBest_PID()==321)kaonp_vec.push_back(p);
+
+        }
+        if (electrons_vec.empty()) std::cout << "electrons_vec è vuoto!" << std::endl;
+        //
+        auto N_run = c12->runconfig()->getRun(); 
         auto torus = c12->runconfig()->getTorus();
         if(InvertHelicity(N_run)) helicity = -c12->event()->getHelicity();
         else helicity = c12->event()->getHelicity();
-        for (auto& e : electrons) {
+        for (auto& e : electrons_vec) {
             SetLorentzVector(el, e);  // filled with the TLorentzVector that I want to fill and with the particle required
             TLorentzVector Elec = el;
             electron_px = e->getPx();
@@ -593,7 +581,7 @@ void _4processing(const char* fileList) {
             KinematicPID_W(electron_W) && ElectronPID_VertexCut(electron_vz) && ElectronPID_DC(electron_edge1, electron_edge2, electron_edge3, torus) &&
             KinematicPID_Vertex(electron_vz, torus, e_PID)){
                 // Kaon+
-                for(auto& Kp : kaonp) {
+                for(auto& Kp : kaonp_vec) {
                     SetLorentzVector(kp, Kp);
                     TLorentzVector P_h = kp;
                     TVector3 qVec = q.Vect();
@@ -640,124 +628,44 @@ void _4processing(const char* fileList) {
                         kaonp_vz = Kp->par()->getVz();
                         kaonp_SinPhi = TMath::Sin(kaonp_Phi_h);
                         kaonp_Phi_h = TMath::ATan2(kaonp_Ph_y, -kaonp_Ph_x); // ATTENTO A QUEL MENO, NON DOVREBBE ESSERCI, MA COSI' ASSOMIGLIA A QUELLO DI SIMONE
-                        kaonp_rich_Id = Kp->rich()->getId();
                         kaonp_phi_cambio = kaonp_Phi_h;
+                        kaonp_rich_Id = Kp->rich()->getId();
+                        kaonp_rich_PID = Kp->rich()->getBest_PID();
+                        kaonp_rich_ntot = Kp->rich()->getBest_ntot();
+                        kaonp_rich_ch = Kp->rich()->getBest_ch();
+                        bool kaonp_richEvent = (kaonp_rich_PID == 321);
+                        kaonp_rich_RQ = Kp->rich()->getRQ();
+                        //kaonp_tracker_chi2 = Kp->tracker()->getChi2();
                         if(kaonp_phi_cambio < 0){ 
                           kaonp_phi_cambio += 2*TMath::Pi();
                         }
                         kaonp_Phi_hDeg = kaonp_phi_cambio * TMath::RadToDeg();
-                        if(Kp->rich()->getBest_PID() == 321) kaonp_rich_PID = Kp->rich()->getBest_PID();
+                        //if(Kp->rich()->getBest_PID() == 321) kaonp_rich_PID = Kp->rich()->getBest_PID();
+                        /*
                         if(HadronPID_Reson(kaonp_Ph, kaonp_M2x) && HadronPID_Q2(kaonp_Q2) && KinematicPID_xF(kaonp_xF) &&
                         HadronPID_DC(kaonp_edge1, kaonp_edge2, kaonp_edge3, torus) && KinematicPID_Vertex(kaonp_vz, torus, kp_PID) &&
                         HadronPID_Chi2Pid(kaonp_chi2pid) && HadronPID_z(kaonp_z)){
-                            /*
-                            // z
-                            if(kaonp_z < 0.4){ 
-                              kp_Phi_z1.Fill(kaonp_Phi_h);
-                              kp_Phi_z1_Q2.Fill(kaonp_Q2);
-                              kp_Phi_z1_y.Fill(kaonp_y);
-                              if(helicity > 0) kp_Phi_z1_Hp.Fill(kaonp_Phi_h);
-                              else if(helicity < 0) kp_Phi_z1_Hm.Fill(kaonp_Phi_h);
-                            }else if(kaonp_z >= 0.4 && kaonp_z <0.5){
-                              kp_Phi_z2.Fill(kaonp_Phi_h);
-                              kp_Phi_z2_Q2.Fill(kaonp_Q2);
-                              kp_Phi_z2_y.Fill(kaonp_y);
-                              if(helicity > 0) kp_Phi_z2_Hp.Fill(kaonp_Phi_h);
-                              else if(helicity < 0) kp_Phi_z2_Hm.Fill(kaonp_Phi_h);
-                            }else if(kaonp_z >= 0.5 && kaonp_z <0.65){
-                              kp_Phi_z3.Fill(kaonp_Phi_h);
-                              kp_Phi_z3_Q2.Fill(kaonp_Q2);
-                              kp_Phi_z3_y.Fill(kaonp_y);
-                              if(helicity > 0) kp_Phi_z3_Hp.Fill(kaonp_Phi_h);
-                              else if(helicity < 0) kp_Phi_z3_Hm.Fill(kaonp_Phi_h);
-                            }else if(kaonp_z >= 0.65){
-                              kp_Phi_z4.Fill(kaonp_Phi_h);
-                              kp_Phi_z4_Q2.Fill(kaonp_Q2);
-                              kp_Phi_z4_y.Fill(kaonp_y);
-                              if(helicity > 0) kp_Phi_z4_Hp.Fill(kaonp_Phi_h);
-                              else if(helicity < 0) kp_Phi_z4_Hm.Fill(kaonp_Phi_h);
-                            }
-                            // PhT
-                            if(kaonp_PhT < 0.25){
-                              kp_Phi_PhT1.Fill(kaonp_Phi_h);
-                              kp_Phi_PhT1_Q2.Fill(kaonp_Q2);
-                              kp_Phi_PhT1_y.Fill(kaonp_y);
-                              if(helicity > 0) kp_Phi_PhT1_Hp.Fill(kaonp_Phi_h);
-                              else if(helicity < 0) kp_Phi_PhT1_Hm.Fill(kaonp_Phi_h);
-                            }else if(kaonp_PhT >= 0.25 && kaonp_PhT <0.5){
-                              kp_Phi_PhT2.Fill(kaonp_Phi_h);
-                              kp_Phi_PhT2_Q2.Fill(kaonp_Q2);
-                              kp_Phi_PhT2_y.Fill(kaonp_y);
-                              if(helicity > 0) kp_Phi_PhT2_Hp.Fill(kaonp_Phi_h);
-                              else if(helicity < 0) kp_Phi_PhT2_Hm.Fill(kaonp_Phi_h);
-                            }else if(kaonp_PhT >= 0.5 && kaonp_PhT <0.7){
-                              kp_Phi_PhT3.Fill(kaonp_Phi_h);
-                              kp_Phi_PhT3_Q2.Fill(kaonp_Q2);
-                              kp_Phi_PhT3_y.Fill(kaonp_y);
-                              if(helicity > 0) kp_Phi_PhT3_Hp.Fill(kaonp_Phi_h);
-                              else if(helicity < 0) kp_Phi_PhT3_Hm.Fill(kaonp_Phi_h);
-                            }else if(kaonp_PhT >= 0.7){
-                              kp_Phi_PhT4.Fill(kaonp_Phi_h);
-                              kp_Phi_PhT4_Q2.Fill(kaonp_Q2);
-                              kp_Phi_PhT4_y.Fill(kaonp_y);
-                              if(helicity > 0) kp_Phi_PhT4_Hp.Fill(kaonp_Phi_h);
-                              else if(helicity < 0) kp_Phi_PhT4_Hm.Fill(kaonp_Phi_h);
-                            }
-                            // Q2
-                            if(kaonp_Q2 < 2){
-                              kp_Phi_Q21.Fill(kaonp_Phi_h);
-                              kp_Phi_Q21_Q2.Fill(kaonp_Q2);
-                              kp_Phi_Q21_y.Fill(kaonp_y);
-                              if(helicity > 0) kp_Phi_Q21_Hp.Fill(kaonp_Phi_h);
-                              else if(helicity < 0) kp_Phi_Q21_Hm.Fill(kaonp_Phi_h);
-                            }else if(kaonp_Q2 >= 2 && kaonp_Q2 < 3){
-                              kp_Phi_Q22.Fill(kaonp_Phi_h);
-                              kp_Phi_Q22_Q2.Fill(kaonp_Q2);
-                              kp_Phi_Q22_y.Fill(kaonp_y);
-                              if(helicity > 0) kp_Phi_Q22_Hp.Fill(kaonp_Phi_h);
-                              else if(helicity < 0) kp_Phi_Q22_Hm.Fill(kaonp_Phi_h);
-                            }else if(kaonp_Q2 >= 3 && kaonp_Q2 < 4){
-                              kp_Phi_Q23.Fill(kaonp_Phi_h);
-                              kp_Phi_Q23_Q2.Fill(kaonp_Q2);
-                              kp_Phi_Q23_y.Fill(kaonp_y);
-                              if(helicity > 0) kp_Phi_Q23_Hp.Fill(kaonp_Phi_h);
-                              else if(helicity < 0) kp_Phi_Q23_Hm.Fill(kaonp_Phi_h);
-                            }else if(kaonp_Q2 >= 4){
-                              kp_Phi_Q24.Fill(kaonp_Phi_h);
-                              kp_Phi_Q24_Q2.Fill(kaonp_Q2);
-                              kp_Phi_Q24_y.Fill(kaonp_y);
-                              if(helicity > 0) kp_Phi_Q24_Hp.Fill(kaonp_Phi_h);
-                              else if(helicity < 0) kp_Phi_Q24_Hm.Fill(kaonp_Phi_h);
-                            }
-                            // xB
-                            if(kaonp_xB < 0.15){
-                              kp_Phi_xB1.Fill(kaonp_Phi_h);
-                              kp_Phi_xB1_Q2.Fill(kaonp_Q2);
-                              kp_Phi_xB1_y.Fill(kaonp_y);
-                              if(helicity > 0) kp_Phi_xB1_Hp.Fill(kaonp_Phi_h);
-                              else if(helicity < 0) kp_Phi_xB1_Hm.Fill(kaonp_Phi_h);
-                            }else if(kaonp_xB >= 0.15 && kaonp_xB <0.25){
-                              kp_Phi_xB2.Fill(kaonp_Phi_h);
-                              kp_Phi_xB2_Q2.Fill(kaonp_Q2);
-                              kp_Phi_xB2_y.Fill(kaonp_y);
-                              if(helicity > 0) kp_Phi_xB2_Hp.Fill(kaonp_Phi_h);
-                              else if(helicity < 0) kp_Phi_xB2_Hm.Fill(kaonp_Phi_h);
-                            }else if(kaonp_xB >= 0.25 && kaonp_xB <0.35){
-                              kp_Phi_xB3.Fill(kaonp_Phi_h);
-                              kp_Phi_xB3_Q2.Fill(kaonp_Q2);
-                              kp_Phi_xB3_y.Fill(kaonp_y);
-                              if(helicity > 0) kp_Phi_xB3_Hp.Fill(kaonp_Phi_h);
-                              else if(helicity < 0) kp_Phi_xB3_Hm.Fill(kaonp_Phi_h);
-                            }else if(kaonp_xB >= 0.35){
-                              kp_Phi_xB4.Fill(kaonp_Phi_h);
-                              kp_Phi_xB4_Q2.Fill(kaonp_Q2);
-                              kp_Phi_xB4_y.Fill(kaonp_y);
-                              if(helicity > 0) kp_Phi_xB4_Hp.Fill(kaonp_Phi_h);
-                              else if(helicity < 0) kp_Phi_xB4_Hm.Fill(kaonp_Phi_h);
-                            }
-                            */
+                          */
+                        if ((kaonp_richEvent && kaonp_Ph >= 1.2 && kaonp_Ph < 8 && HadronPID_DC(kaonp_edge1, kaonp_edge2, kaonp_edge3, torus) &&
+                        HadronPID_Reson(kaonp_Ph, kaonp_M2x) && kaonp_rich_RQ >= 0.1)|| 
+                        (!kaonp_richEvent && kaonp_Ph >= 1.2 && kaonp_Ph < 3 &&
+                        HadronPID_Reson(kaonp_Ph, kaonp_M2x) && 
+                        HadronPID_Q2(kaonp_Q2) && KinematicPID_xF(kaonp_xF) &&
+                        HadronPID_DC(kaonp_edge1, kaonp_edge2, kaonp_edge3, torus) &&
+                        KinematicPID_Vertex(kaonp_vz, torus, kp_PID) &&
+                        HadronPID_Chi2Pid(kaonp_chi2pid) && HadronPID_z(kaonp_z))) {
                             kaonp_Pol = BeamPolarization(N_run, true);
                             kaonp_Pol_err = BeamPolarization(N_run, false);
+                            kp_PIDVsTheta.Fill(kaonp_rich_PID, kaonp_Theta);
+                            kp_PIDVsMom.Fill(kaonp_rich_PID, kaonp_Ph);
+                            if(kaonp_rich_PID == 321){
+                              double kp_new_RQ = Kp->rich()->getRQ();
+                              double kp_new_ch = Kp->rich()->getBest_ch();
+                              double kp_new_ntot = Kp->rich()->getBest_ntot();
+                              kp_Ch.Fill(kp_new_ch);
+                              kp_nTot.Fill(kp_new_ntot);
+                              kp_RQ.Fill(kp_new_RQ);
+                            }
                             kaonp_gamma = (2*ProtonMass*kaonp_xB)/(sqrt(kaonp_Q2));
                             kaonp_epsilon = (1- kaonp_y - 0.25 * pow(kaonp_gamma, 2) * pow(kaonp_y, 2))/(1 - kaonp_y + 0.5 * pow(kaonp_y,2) + 0.25*pow(kaonp_gamma,2)*pow(kaonp_y,2));
                             treeKaonP.Fill();  // Riempie solo i valori di z nel range desiderato
@@ -841,15 +749,11 @@ void _4processing(const char* fileList) {
             }
         }
     }
-    //treeKaonP.Draw("Mom/PhT", "", "colz");
-    //kp_MomVsPhT.Draw("colz");
+
     outFile.Write();
     outFile.Close();
     gBenchmark->Stop("db");
     gBenchmark->Print("db");
-    //double A_LU = (N_up - N_down) / (N_up + N_down);
-    //cout << "N_up = " << N_up << " --- N_down = " << N_down << endl;
-    //cout << "A_LU = " << A_LU << endl;
-    //cout << "Processed " << eventCount << " events from file: " << filePath << endl;
+
     cout << "ROOT output file: " << outputFile << endl;
 }
