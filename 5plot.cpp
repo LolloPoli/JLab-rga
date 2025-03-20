@@ -73,7 +73,7 @@ int main() {
     double kaonm_edge1, kaonm_edge2, kaonm_edge3, kaonm_vz, kaonm_SinPhi;
     double kaonm_helicity, kaonm_Phi_Hup, kaonm_Phi_Hdw;
     // open file
-    TFile inFile("out_t-1.root", "READ");
+    TFile inFile("output_group_PROVA.root", "READ");
     // creo un output root 
     const char* outputFile = "plot_t-1.root";
     TFile outFile(outputFile, "RECREATE");  // File di output ROOT
